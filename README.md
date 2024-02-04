@@ -1,3 +1,4 @@
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1i16ZjZZl83OFxd0f_IBptPaprtfzfcY1?usp=sharing]
 # Image level Annotator
 
 This repository contains a machine learning tool designed to generate bounding boxes from a given set of classes that exist in images. This tool was developed as part of a novel architecture for training a prompt-based image segmentation model in a weakly supervised way.
