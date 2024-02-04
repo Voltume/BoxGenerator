@@ -1,4 +1,4 @@
-# Object Detection Tool for ENSAM Meknes
+# Image level Annotator
 
 This repository contains a machine learning tool designed to generate bounding boxes from a given set of classes that exist in images. This tool was developed as part of a novel architecture for training a prompt-based image segmentation model in a weakly supervised way.
 
