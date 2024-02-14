@@ -53,6 +53,19 @@ class Annotator:
       self.images[image_name] = image
       self.annotations[image_name] = self.detections
   
+  def get_box(self, image_path, BOX_TRESHOLD=0.35, TEXT_TRESHOLD=0.25, class_enhancer=enhance_class_name):
+    image = cv2.imread(image_path)
+
+    detections = grounding_dino_model.predict_with_classes(
+        image=image,
+        classes=enhance_class_name(class_names=self.classes),
+        box_threshold=BOX_TRESHOLD,
+        text_threshold=TEXT_TRESHOLD
+    )
+    # We made the detections var  an attribute  
+    detections = detections[detections.class_id != None]
+    return detections 
+  
   def to_pascal_voc(self, MIN_IMAGE_AREA_PERCENTAGE=0.002, MAX_IMAGE_AREA_PERCENTAGE=0.80, APPROXIMATION_PERCENTAGE=0.75):
     sv.Dataset(
         classes=self.classes,
