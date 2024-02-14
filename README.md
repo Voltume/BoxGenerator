@@ -12,7 +12,7 @@ The primary purpose of this tool is to serve as a pedagogical resource for stude
 ## Features
 
 - **Object Detection**: The tool can generate bounding boxes for a given set of classes present in images.
-- **Interactive Learning**: The tool is designed to be user-friendly, promoting interactive learning of object detection tasks.
+- **Interactive Learning**: The tool is designed to be user-friendly, promoting interactive learning of object detection tasks, by simplifying the task of generating bounding boxes and saving them in a PASCAL VOC extensions.
 - **Google Colab Notebook**: A notebook is provided to test the tool using a free GPU on Google Colab.
 
 ## Getting Started
