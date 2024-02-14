@@ -31,6 +31,7 @@ class Annotator:
       directory=self.images_dir,
       extensions=self.images_extensions)
     
+    self.detections = None
     self.images = {}
     self.annotations = {}
 
@@ -40,16 +41,17 @@ class Annotator:
       image_path = str(image_path)
       image = cv2.imread(image_path)
 
-      detections = grounding_dino_model.predict_with_classes(
+      self.detections = grounding_dino_model.predict_with_classes(
           image=image,
           classes=enhance_class_name(class_names=self.classes),
           box_threshold=BOX_TRESHOLD,
           text_threshold=TEXT_TRESHOLD
       )
-      detections = detections[detections.class_id != None]
+      # We made the detections var  an attribute  
+      self.detections = self.detections[self.detections.class_id != None] 
 
       self.images[image_name] = image
-      self.annotations[image_name] = detections
+      self.annotations[image_name] = self.detections
   
   def to_pascal_voc(self, MIN_IMAGE_AREA_PERCENTAGE=0.002, MAX_IMAGE_AREA_PERCENTAGE=0.80, APPROXIMATION_PERCENTAGE=0.75):
     sv.Dataset(
@@ -69,7 +71,7 @@ class Annotator:
 
     box_annotator = sv.BoxAnnotator()
 
-    for image_name, detections in self.annotations.items():
+    for image_name, self.detections in self.annotations.items():
       image = self.images[image_name]
       plot_images.append(image)
       plot_titles.append(image_name)
@@ -77,13 +79,13 @@ class Annotator:
       labels = [
           f"{self.classes[class_id]} {confidence:0.2f}"
           for _, _, confidence, class_id, _
-          in detections]
-      annotated_image = box_annotator.annotate(scene=image.copy(), detections=detections, labels=labels)
+          in self.detections]
+      annotated_image = box_annotator.annotate(scene=image.copy(), detections=self.detections, labels=labels)
       plot_images.append(annotated_image)
       title = " ".join(set([
           self.classes[class_id]
           for class_id
-          in detections.class_id
+          in self.detections.class_id
       ]))
       plot_titles.append(title)
 
